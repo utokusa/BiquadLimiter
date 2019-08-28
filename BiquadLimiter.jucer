@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="jtn87C" name="BiquadLimiter" projectType="audioplug" jucerVersion="5.4.3"
+              companyName="Onsen Audio" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
+              pluginManufacturerCode="htMi" pluginCode="Uska" pluginAUMainType="'aufx'"
+              version="0.9.0">
+  <MAINGROUP id="DtLb7J" name="BiquadLimiter">
+    <GROUP id="{8B845E84-8313-5179-D32B-75AF4EEF88C7}" name="Source">
+      <GROUP id="{BBDF2F10-6B5E-9C81-B9FF-AC6231CD8E26}" name="DSP">
+        <FILE id="sGxYqp" name="BiquadLimiterDsp.cpp" compile="1" resource="0"
+              file="Source/DSP/BiquadLimiterDsp.cpp"/>
+        <FILE id="X27fMK" name="BiquadLimiterDsp.h" compile="0" resource="0"
+              file="Source/DSP/BiquadLimiterDsp.h"/>
+        <FILE id="neyb5e" name="ClipperDsp.cpp" compile="1" resource="0" file="Source/DSP/ClipperDsp.cpp"/>
+        <FILE id="sdCoTY" name="ClipperDsp.h" compile="0" resource="0" file="Source/DSP/ClipperDsp.h"/>
+        <FILE id="JQuO0h" name="DspCommon.cpp" compile="1" resource="0" file="Source/DSP/DspCommon.cpp"/>
+        <FILE id="QpqdGb" name="DspCommon.h" compile="0" resource="0" file="Source/DSP/DspCommon.h"/>
+        <FILE id="GtXRVf" name="LimiterDsp.cpp" compile="1" resource="0" file="Source/DSP/LimiterDsp.cpp"/>
+        <FILE id="KfWqIU" name="LimiterDsp.h" compile="0" resource="0" file="Source/DSP/LimiterDsp.h"/>
+      </GROUP>
+      <GROUP id="{C8281691-6074-F521-9168-779D7853DACD}" name="GUI">
+        <FILE id="yCPxcF" name="FreqResponseComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/FreqResponseComponent.cpp"/>
+        <FILE id="UCQcIO" name="FreqResponseComponent.h" compile="0" resource="0"
+              file="Source/GUI/FreqResponseComponent.h"/>
+        <FILE id="uL3EcF" name="LimiterWorkingDetector.cpp" compile="1" resource="0"
+              file="Source/GUI/LimiterWorkingDetector.cpp"/>
+        <FILE id="rPZS06" name="LimiterWorkingDetector.h" compile="0" resource="0"
+              file="Source/GUI/LimiterWorkingDetector.h"/>
+      </GROUP>
+      <GROUP id="{6326BF96-26BE-AEAE-7916-8CDE147033FC}" name="LookAndFeel">
+        <FILE id="mj3KXE" name="GlobalLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/GlobalLookAndFeel.cpp"/>
+        <FILE id="iVEgHr" name="GlobalLookAndFeel.h" compile="0" resource="0"
+              file="Source/LookAndFeel/GlobalLookAndFeel.h"/>
+        <FILE id="JFSudi" name="KnobLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/KnobLookAndFeel.cpp"/>
+        <FILE id="ZdQcyK" name="KnobLookAndFeel.h" compile="0" resource="0"
+              file="Source/LookAndFeel/KnobLookAndFeel.h"/>
+        <FILE id="wQxIj0" name="SliderLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/LookAndFeel/SliderLookAndFeel.cpp"/>
+        <FILE id="Vq80JG" name="SliderLookAndFeel.h" compile="0" resource="0"
+              file="Source/LookAndFeel/SliderLookAndFeel.h"/>
+      </GROUP>
+      <GROUP id="{39700B7B-13E8-E294-F95D-AE4C85CB6AF5}" name="Image">
+        <FILE id="BLUuqn" name="BiquadLimiterBackground_4x.png" compile="0"
+              resource="1" file="Image/BiquadLimiterBackground_4x.png"/>
+        <FILE id="YAgJdC" name="ComboBox_4x.png" compile="0" resource="1" file="Image/ComboBox_4x.png"/>
+        <FILE id="TzZbEy" name="FreqResponce_4x.png" compile="0" resource="1"
+              file="Image/FreqResponce_4x.png"/>
+        <FILE id="N3X9fL" name="SliderThumb_4x.png" compile="0" resource="1"
+              file="Image/SliderThumb_4x.png"/>
+        <FILE id="AwkD8m" name="SmallThumb_4x.png" compile="0" resource="1"
+              file="Image/SmallThumb_4x.png"/>
+        <FILE id="f9bUDQ" name="Thumb_4x.png" compile="0" resource="1" file="Image/Thumb_4x.png"/>
+      </GROUP>
+      <FILE id="u8522w" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="YrdkbL" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="lGq0UC" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="bW6hPh" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>
