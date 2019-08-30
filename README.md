@@ -4,8 +4,7 @@ BiquadLimiter is a biquad filter plug-in whitch has a dynamic range limiter in f
 
 <div align="center"><img src="screenshot.gif" width="400px"></div>
 
-<img src="BiquadLimiterAlgorithm.svg" width="600px">
-
+<div align="center"><img src="BiquadLimiterAlgorithm.svg" width="600px"></div>
 
 ## Features
 
