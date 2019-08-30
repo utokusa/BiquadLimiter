@@ -2,6 +2,11 @@
 
 BiquadLimiter is a biquad filter plug-in whitch has a dynamic range limiter in front of the feedback section (Limiter1) and an another limiter in the final section (Limiter2). This plug-in is made with C++  and JUCE. 
 
+<div align="center"><img src="screenshot.gif" width="400px"></div>
+
+<img src="BiquadLimiterAlgorithm.svg" width="600px">
+
+
 ## Features
 
 - You can see the six coefficients (a0, ..., b2) of the biquad filter that determine the behavior of the filter. Changing either Frequency / Q / Type will move the coefficient sliders. ([See this link for information on biquad filter coefficients.](https://www.w3.org/2011/audio/audio-eq-cookbook.html))
@@ -29,6 +34,8 @@ BiquadLimiter can run inside plugin hosts that supports VST, VST3, or AU.
 **Limiter LED** : This LED indicates whether the limiter is working.
 
 **Frequency display** : The graph shows the ideal filter frequency response without the effect of the limiter. 
+
+The y axis shows gain (dB) and the x axis shows *frequency* (*Hz*). 
 
 ## Building
 
