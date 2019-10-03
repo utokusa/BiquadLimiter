@@ -62,12 +62,15 @@ private:
     static constexpr bool l2_isGainShareMode = false;
     
     int numChannel;
-    std::array<float, numCoef> smoothed_coef;
-    std::array<float, numCoef> coef;
+    std::array<float, numCoef> smoothed_coef; // smoothed coefficients
+    std::array<float, numCoef> coef; // coefficients read from sliders
     std::vector<BiquadLimiterBuffer> biquadFilterBuffer;
     LimiterDsp limiter1;
     LimiterDsp limiter2;
     
+    // alphaOfDefaultSampleRate is the value of "alpha" when SampleRate is the default value,
+    // where "alpha" is a smoothing coefficient for BiquadLimiter coefficients.
+    // This variable is necessary because alpha is proportional to the sampling rate.
     static constexpr float alphaOfDefaultSampleRate = 0.3f;
     static constexpr double defaultSampleRate = 44100.0f;
     float smoothVal(float smoothed, float input, double sampleRate);

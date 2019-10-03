@@ -17,7 +17,8 @@ void SliderLookAndFeel::drawLinearSlider (Graphics& g, int x, int y, int width, 
 {
     
     Image thumb = ImageCache::getFromMemory(BinaryData::SliderThumb_4x_png, BinaryData::SliderThumb_4x_pngSize);
-    float positionX = sliderPos - 13.0f;
+    constexpr float positionXOffset = 13.0f;
+    float positionX = sliderPos - positionXOffset;
     constexpr float positionY = 14.0f;
     Rectangle<float> knobArea(positionX, positionY, thumbWidth, thumbHeight);
     g.drawImage(thumb, knobArea, RectanglePlacement::Flags::xLeft);

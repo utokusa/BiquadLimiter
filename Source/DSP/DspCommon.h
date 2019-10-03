@@ -26,9 +26,11 @@ namespace DspCommon
     }
     
     double clampSampleRate (double sampleRate);
+    double defaultSampleRateIfOutOfRange (double sampleRate);
     
-    double fixSampleRate (double sampleRate);
-    
+    // alphaOfDefaultSampleRate is the value of "alpha" when SampleRate is the default value,
+    // where "alpha" is a smoothing coefficient for BiquadLimiter coefficients.
+    // This variable is necessary because alpha is proportional to the sampling rate.
     static constexpr double smoothingAlphaOfDefaultSampleRate = 0.1f;
     float smoothParamValue (const float newValue, const float prevSmoothParam, const double sampleRate);
 }

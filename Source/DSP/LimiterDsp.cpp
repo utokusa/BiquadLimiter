@@ -19,7 +19,7 @@ LimiterDsp::LimiterDsp(float threasholdDb, float kneeWidthDb, float attackTime, 
     , prevGainSmoothedDb(numChannel)
     , isGainShareMode(isGainShareMode)
     , isLimitterWorking(false)
-    , cntDecayMilliSec(numChannel)
+    , decayValMilliSec(numChannel)
 {
 }
 
@@ -113,23 +113,23 @@ float LimiterDsp::DoProcessOneSample(float inputSigLinear, double sampleRate, in
 
 void LimiterDsp::UpdateCounter(float inputSigLinear,float outputSigLinear, double sampleRate, int channel)
 {
-    // Whien limiter starts working, cntDecayMilliSec will be set to this value.
+    // Whien limiter starts working, decayValMilliSec will be set to this value.
     if (std::abs(inputSigLinear - outputSigLinear) > epsilon)
     {
-        cntDecayMilliSec[channel] = stateDecayMilliSec;
+        decayValMilliSec[channel] = ititDecayValMilliSec;
     }
-    else if (cntDecayMilliSec[channel] >= 0.0f)
+    else if (decayValMilliSec[channel] >= 0.0f)
     {
         jassert(sampleRate > 0);
-        cntDecayMilliSec[channel] -= 1.0f / static_cast<float>(sampleRate) * 1000.0f;
+        decayValMilliSec[channel] -= 1.0f / static_cast<float>(sampleRate) * 1000.0f;
     }
 }
 
 void LimiterDsp::UpdateWorkingState()
 {
-    // isLimitterWorking is true when cntDecayMilliSec > 0.
+    // isLimitterWorking is true when decayValMilliSec > 0.
     bool next_state = false;
-    for (auto cnt : cntDecayMilliSec)
+    for (auto cnt : decayValMilliSec)
     {
         if (cnt > epsilon)
         {

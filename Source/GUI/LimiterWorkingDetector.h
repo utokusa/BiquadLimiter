@@ -34,9 +34,9 @@ private:
     BiquadLimiter& biquadFilter;
     
     //=============================================================================
-    static constexpr float largerCircleRadius = 14.0f;
-    static constexpr float smallerCircleRadius = 8.0f;
-    static constexpr float SubRadius = (largerCircleRadius - smallerCircleRadius) / 2.0f;
+    static constexpr float largerCircleDiameter = 14.0f;
+    static constexpr float smallerCircleDiameter = 8.0f;
+    static constexpr float diffRadius = (largerCircleDiameter - smallerCircleDiameter) / 2.0f;
     static constexpr int numCircle = 5 ;
     static constexpr float gap = 5.f;
     static constexpr float textWidth = 50.0f;

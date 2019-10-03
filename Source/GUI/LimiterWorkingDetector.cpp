@@ -22,7 +22,7 @@ void LimiterWorkingDetector::paint(juce::Graphics &g)
 {
     g.setColour (Colours::white);
     
-    g.drawText(String("Limiter"), gap * 2 + largerCircleRadius, gap, textWidth, textHeight, Justification::topLeft);
+    g.drawText(String("Limiter"), gap * 2 + largerCircleDiameter, gap, textWidth, textHeight, Justification::topLeft);
     auto isClipping = biquadFilter.isLimiterWorking();
     float thickness;
     if (true == isClipping)
@@ -37,7 +37,7 @@ void LimiterWorkingDetector::paint(juce::Graphics &g)
         g.setColour(Colour(NotClippingColourId));
         thickness = 2.0f;
     }
-    g.drawEllipse(gap + SubRadius, gap + SubRadius, smallerCircleRadius, smallerCircleRadius, thickness);
+    g.drawEllipse(gap + diffRadius, gap + diffRadius, smallerCircleDiameter, smallerCircleDiameter, thickness);
 }
 
 

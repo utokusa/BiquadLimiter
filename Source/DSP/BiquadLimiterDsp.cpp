@@ -36,7 +36,7 @@ void BiquadLimiter::setCoefficient(float a0, float a1, float a2
                                    , float b0, float b1, float b2
                                    , double sampleRate)
 {
-    double fixedSamplingRate = DspCommon::fixSampleRate(sampleRate);
+    double fixedSamplingRate = DspCommon::defaultSampleRateIfOutOfRange(sampleRate);
     coef = smoothed_coef;
 
     smoothed_coef[0] = smoothVal(smoothed_coef[0], a0, fixedSamplingRate);
@@ -50,7 +50,7 @@ void BiquadLimiter::setCoefficient(float a0, float a1, float a2
 void BiquadLimiter::setCoefficient(std::array<float, numCoef> new_coef
                                    , double sampleRate)
 {
-    double fixedSamplingRate = DspCommon::fixSampleRate(sampleRate);
+    double fixedSamplingRate = DspCommon::defaultSampleRateIfOutOfRange(sampleRate);
     coef = smoothed_coef;
     
     for (int i = 0; i < numCoef; ++i)
@@ -69,7 +69,7 @@ const float& BiquadLimiter::operator [] ( const int i ) const
 void BiquadLimiter::DoProcess(float* bufferPtr, int bufferSize
                               , int channel, double sampleRate)
 {
-    double fixedSamplingRate = DspCommon::fixSampleRate(sampleRate);
+    double fixedSamplingRate = DspCommon::defaultSampleRateIfOutOfRange(sampleRate);
     constexpr int numCoef = 6;
     std::vector<float> delta_coef(numCoef);
     for (int k = 0; k < numCoef; ++k)
@@ -77,24 +77,24 @@ void BiquadLimiter::DoProcess(float* bufferPtr, int bufferSize
         delta_coef[k] = (smoothed_coef[k] - coef[k]) / bufferSize;
     }
     
-    std::vector<float> tmp_coef(numCoef);
-    std::copy(coef.begin(), coef.end(), tmp_coef.begin());
+    std::vector<float> curr_coef(numCoef); // current coefficient
+    std::copy(coef.begin(), coef.end(), curr_coef.begin());
     
     for (int i = 0; i < bufferSize; i++) {
         for (int k = 0; k < numCoef; ++k)
         {
-            tmp_coef[k] += delta_coef[k];
+            curr_coef[k] += delta_coef[k];
         }
         
         if (channel <= numChannel)
         {
             // Calculate biquad filter output.
-            float out0 = (tmp_coef[3] * bufferPtr[i]
-                          + tmp_coef[4] * biquadFilterBuffer[channel].in1
-                          + tmp_coef[5] * biquadFilterBuffer[channel].in2
-                          - tmp_coef[1] * biquadFilterBuffer[channel].out1
-                          - tmp_coef[2] * biquadFilterBuffer[channel].out2
-                          ) / tmp_coef[0];
+            float out0 = (curr_coef[3] * bufferPtr[i]
+                          + curr_coef[4] * biquadFilterBuffer[channel].in1
+                          + curr_coef[5] * biquadFilterBuffer[channel].in2
+                          - curr_coef[1] * biquadFilterBuffer[channel].out1
+                          - curr_coef[2] * biquadFilterBuffer[channel].out2
+                          ) / curr_coef[0];
             
             if (isnan(out0))out0= 0;  //out0 equals NaN
             auto filterOut = out0;

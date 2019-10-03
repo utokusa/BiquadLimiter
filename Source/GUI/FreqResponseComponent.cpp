@@ -16,18 +16,18 @@ FrequencyResponseComponent::FrequencyResponseComponent(AudioProcessor& p
     : processor(p)
     , parameters(vts)
     , biauadLimiter(bl)
-    , BORDER_THICKNESS(2)
-    , GRAPH_X_POINT(BORDER_THICKNESS)
-    , GRAPH_Y_POINT(BORDER_THICKNESS)
+    , BorderThickness(2)
+    , graphX(BorderThickness)
+    , graphY(BorderThickness)
 {
-    GRAPH_WIDTH = getWidth() - 2 *  BORDER_THICKNESS;
-    GRAPH_HEIGHT = getHeight() - 2 *  BORDER_THICKNESS;
+    graphWidth = getWidth() - 2 *  BorderThickness;
+    graphHeight = getHeight() - 2 *  BorderThickness;
 }
 
 void FrequencyResponseComponent::paint(Graphics& g)
 {
-    GRAPH_WIDTH = getWidth() - 2 *  BORDER_THICKNESS;
-    GRAPH_HEIGHT = getHeight() - 2 *  BORDER_THICKNESS;
+    graphWidth = getWidth() - 2 *  BorderThickness;
+    graphHeight = getHeight() - 2 *  BorderThickness;
     
     //=============================================================================
     // draw tick lines
@@ -51,8 +51,8 @@ void FrequencyResponseComponent::paint(Graphics& g)
                 break;
             }
             float frequency = msd * std::pow(10.0f, exponent);
-            float xPosition = GRAPH_WIDTH / 3.0f * std::log10(frequency / 20.0f) + GRAPH_X_POINT;
-            tickLines.push_back(Line<float>(xPosition ,0, xPosition, GRAPH_HEIGHT - tickMarginY));
+            float xPosition = graphWidth / 3.0f * std::log10(frequency / 20.0f) + graphX;
+            tickLines.push_back(Line<float>(xPosition ,0, xPosition, graphHeight - tickMarginY));
         }
     }
     
@@ -63,9 +63,9 @@ void FrequencyResponseComponent::paint(Graphics& g)
     constexpr float tickMarginX = 17;  // make space for labels.
     for (int magnitude = minMag; magnitude <= maxMag; magnitude += deltaMag)
     {
-        float yPosition = GRAPH_Y_POINT + GRAPH_HEIGHT / 2.0f - static_cast<float>(magnitude) / 24.0f * (GRAPH_HEIGHT / 2.0f);
+        float yPosition = graphY + graphHeight / 2.0f - static_cast<float>(magnitude) / 24.0f * (graphHeight / 2.0f);
         
-        tickLines.push_back(Line<float>(GRAPH_X_POINT, yPosition, GRAPH_WIDTH - tickMarginX, yPosition));
+        tickLines.push_back(Line<float>(graphX, yPosition, graphWidth - tickMarginX, yPosition));
     }
     
     // Draw to Graphic g.
@@ -109,7 +109,7 @@ void FrequencyResponseComponent::paint(Graphics& g)
     createGraphPath(g);
     
     // Fill the graph path with a gradient color.
-    ColourGradient gradient(Colour(0x40FFFFFF), Point<float>(0, GRAPH_Y_POINT), Colour(0x00FFFFFF), Point<float>(0, (GRAPH_Y_POINT + GRAPH_HEIGHT)), false);
+    ColourGradient gradient(Colour(0x40FFFFFF), Point<float>(0, graphY), Colour(0x00FFFFFF), Point<float>(0, (graphY + graphHeight)), false);
     g.setGradientFill(gradient);
     g.fillPath(filter_response_path_);
     
@@ -141,7 +141,7 @@ float FrequencyResponseComponent::getSmoothedParamValue(int index)
 void FrequencyResponseComponent::createGraphPath(Graphics& g)
 {
     float sampleRate = static_cast<float>(processor.getSampleRate());
-    sampleRate = DspCommon::fixSampleRate(sampleRate);
+    sampleRate = DspCommon::defaultSampleRateIfOutOfRange(sampleRate);
     
     cp a0(getParamValue("a00"), 0.0f);
     cp a1(getParamValue("a01"), 0.0f);
@@ -151,14 +151,14 @@ void FrequencyResponseComponent::createGraphPath(Graphics& g)
     cp b2(getParamValue("b02"), 0.0f);
     
     
-    GRAPH_WIDTH = getWidth() - 2 *  BORDER_THICKNESS;
-    GRAPH_HEIGHT = getHeight() - 2 *  BORDER_THICKNESS;
+    graphWidth = getWidth() - 2 *  BorderThickness;
+    graphHeight = getHeight() - 2 *  BorderThickness;
     
     float val = 0;
     float freq = 20.0f / sampleRate; // Normalized frequency
-    const float offsetY = GRAPH_Y_POINT + GRAPH_HEIGHT / 2.0f;
+    const float offsetY = graphY + graphHeight / 2.0f;
     constexpr float maxGain = 24.0f;
-    const float dbToPixel = GRAPH_HEIGHT / 2.0f / maxGain;  // Constant float to convert decibel gain to pixel.
+    const float dbToPixel = graphHeight / 2.0f / maxGain;  // Constant float to convert decibel gain to pixel.
     
     float prev_val = offsetY - dbToPixel * calcGain(freq, a0, a1, a2, b0, b1, b2);
     if (!isfinite(prev_val))
@@ -167,17 +167,17 @@ void FrequencyResponseComponent::createGraphPath(Graphics& g)
     }
     
     filter_response_path_.clear();
-    filter_response_path_.startNewSubPath(GRAPH_X_POINT, prev_val);
+    filter_response_path_.startNewSubPath(graphX, prev_val);
     auto first_val = prev_val;
     
-    for (int i=0; i<=GRAPH_WIDTH; ++i)
+    for (int i=0; i<=graphWidth; ++i)
     {
-        freq = 20.0f * pow(1000.0f, static_cast<float>(i) / static_cast<float>(GRAPH_WIDTH)) / sampleRate;
+        freq = 20.0f * pow(1000.0f, static_cast<float>(i) / static_cast<float>(graphWidth)) / sampleRate;
         val = offsetY - dbToPixel * calcGain(freq, a0, a1, a2, b0, b1, b2);
         if (isfinite(val)) // Equals to `if (!isnan(val) && !isinf(val))`.
         {
 //            filter_response_path_.lineTo(GRAPH_X_POINT + i + 1, val);
-            filter_response_path_.lineTo(GRAPH_X_POINT + i, val);
+            filter_response_path_.lineTo(graphX + i, val);
             prev_val = val;
         }
         
@@ -185,10 +185,10 @@ void FrequencyResponseComponent::createGraphPath(Graphics& g)
     
     constexpr float margin = 5.0f;
     filter_response_path_ = filter_response_path_.createPathWithRoundedCorners(10.0f);
-    filter_response_path_.lineTo(GRAPH_X_POINT + GRAPH_WIDTH + margin, prev_val);
-    filter_response_path_.lineTo(GRAPH_X_POINT + GRAPH_WIDTH + margin, GRAPH_HEIGHT + margin);
-    filter_response_path_.lineTo(GRAPH_X_POINT - margin, GRAPH_HEIGHT + margin);
-    filter_response_path_.lineTo(GRAPH_X_POINT - margin, first_val);
+    filter_response_path_.lineTo(graphX + graphWidth + margin, prev_val);
+    filter_response_path_.lineTo(graphX + graphWidth + margin, graphHeight + margin);
+    filter_response_path_.lineTo(graphX - margin, graphHeight + margin);
+    filter_response_path_.lineTo(graphX - margin, first_val);
     filter_response_path_.closeSubPath ();
     
 }

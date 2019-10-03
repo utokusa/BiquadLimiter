@@ -37,7 +37,6 @@ public:
     Slider::SliderLayout getSliderLayout (Slider&) override;
 
 private:
-//    static constexpr float sliderWidth = 350.0f;
     static constexpr float thumbWidth = 26.0f;
     static constexpr float thumbHeight = 26.0f;
     

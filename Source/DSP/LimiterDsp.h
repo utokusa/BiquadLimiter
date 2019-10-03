@@ -11,8 +11,8 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 
-// limiter used in befor feedback section of biquad filer.
-// This implementation is based on the link below.
+// This is the limiter class used in befor feedback section of BiquadLimiter.
+// The implementation is based on the link below.
 // https://jp.mathworks.com/help/audio/ref/limiter-system-object.html
 class LimiterDsp
 {
@@ -35,9 +35,9 @@ private:
     bool isGainShareMode;
     
     std::atomic<bool> isLimitterWorking;
-    std::vector<float> cntDecayMilliSec;  // isLimitterWorking is true when cntDecayMilliSec > 0.
+    std::vector<float> decayValMilliSec;  // isLimitterWorking is true when decayValMilliSec > 0.
     const float epsilon = 0.0001f;
-    const float stateDecayMilliSec = 100.0f;  // Whien limiter starts working, cntDecayMilliSec will be set to this value.
+    const float ititDecayValMilliSec = 100.0f;  // Whien limiter starts working, decayValMilliSec will be set to this value.
     
     float convertLinearToDb(float linearVal);
     float convertDbToLinear(float dbVal);

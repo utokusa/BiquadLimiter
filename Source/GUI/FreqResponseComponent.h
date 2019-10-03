@@ -39,11 +39,11 @@ private:
     AudioProcessorValueTreeState& parameters;
     BiquadLimiter& biauadLimiter;
     
-    int BORDER_THICKNESS;
-    int GRAPH_X_POINT;
-    int GRAPH_Y_POINT;
-    int GRAPH_WIDTH;
-    int GRAPH_HEIGHT;
+    int BorderThickness;
+    int graphX;
+    int graphY;
+    int graphWidth;
+    int graphHeight;
     
     Path filter_response_path_;
     

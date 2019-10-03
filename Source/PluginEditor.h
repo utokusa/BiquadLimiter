@@ -46,8 +46,8 @@ private:
     AudioProcessorValueTreeState& valueTreeState;
     
     //==============================================================================
-    const int WINDOW_HEIGHT = 600;
-    const int WINDOW_WIDTH = 500;
+    static constexpr int windowHeight = 600;
+    static constexpr int windowWidth = 500;
     
     //==============================================================================
     

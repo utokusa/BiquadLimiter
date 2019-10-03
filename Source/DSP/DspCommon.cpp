@@ -17,7 +17,7 @@ namespace DspCommon
         return clamp<double> (sampleRate, maxSampleRate, minSampleRate);
     }
     
-    double fixSampleRate (double sampleRate)
+    double defaultSampleRateIfOutOfRange (double sampleRate)
     {
         double dst;
         if (sampleRate < minSampleRate || sampleRate > maxSampleRate)

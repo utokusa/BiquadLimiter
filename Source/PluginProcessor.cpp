@@ -164,7 +164,7 @@ void BiquadLimiterAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     // Pre-playback initialisation.
     previousGain = getGainLinearVal (gain);
     
-    spec.sampleRate = DspCommon::fixSampleRate (sampleRate);
+    spec.sampleRate = DspCommon::defaultSampleRateIfOutOfRange (sampleRate);
     spec.numChannels = maxNumChannels;
     spec.maximumBlockSize = samplesPerBlock;
     isGraphUpToDate.store (false);

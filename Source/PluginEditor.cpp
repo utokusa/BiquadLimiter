@@ -21,7 +21,7 @@ BiquadLimiterAudioProcessorEditor::BiquadLimiterAudioProcessorEditor (BiquadLimi
 , isFreqResUpToDate (false)
 {
     // Set the editor's size to whatever you need it to be.
-    setSize (WINDOW_WIDTH, WINDOW_HEIGHT);
+    setSize (windowWidth, windowHeight);
     
     // Initialize biquad filter sliders.
     auto sliderIds = processor.getBiquadFilerCoefIds();
@@ -105,7 +105,7 @@ void BiquadLimiterAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     Image backgroundImage = ImageCache::getFromMemory(BinaryData::BiquadLimiterBackground_4x_png
                                                       , BinaryData::BiquadLimiterBackground_4x_pngSize);
-    g.drawImageWithin(backgroundImage, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, RectanglePlacement::Flags::xLeft, false);
+    g.drawImageWithin(backgroundImage, 0, 0, windowWidth, windowHeight, RectanglePlacement::Flags::xLeft, false);
 }
 
 void BiquadLimiterAudioProcessorEditor::resized()
