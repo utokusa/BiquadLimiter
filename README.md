@@ -2,6 +2,8 @@
 
 BiquadLimiter is a biquad filter plug-in whitch has a dynamic range limiter in front of the feedback section (Limiter1) and an another limiter in the final section (Limiter2). This plug-in is made with C++  and JUCE. 
 
+https://youtu.be/xxV1-fn0U6Y
+
 <div align="center"><img src="screenshot.gif" width="400px"></div>
 
 <div align="center"><img src="BiquadLimiterAlgorithm.svg" width="600px"></div>
