@@ -48,3 +48,10 @@ You need following libraries.
 - **VST SDK** (v3.6.10) 
 
 If you want build VST (not VST3), you need to use VST SDK v3.6.10 or earlier.
+
+
+## Download
+
+You can download pre-built binaries for Mac.
+
+https://github.com/utokusa/BiquadLimiter/releases
