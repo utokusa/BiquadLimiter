@@ -49,7 +49,7 @@ private:
     
     std::vector<Line<float>> tickLines;
     
-    auto getParamValue(String s);
+    float getParamValue(String s);
     float getSmoothedParamValue(int index);
     void createGraphPath(Graphics& g);
     using cp = std::complex<float>;

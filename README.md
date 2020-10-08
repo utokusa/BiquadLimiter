@@ -44,7 +44,7 @@ This project can be compiled by running the BiquadLimiter.jucer file.
 
 You need following libraries.
 
-- **JUCE**  (v5.4.3)
+- **JUCE**  (v6.0.3)
 - **VST SDK** (v3.6.10) 
 
 If you want build VST (not VST3), you need to use VST SDK v3.6.10 or earlier.

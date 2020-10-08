@@ -88,10 +88,10 @@ private:
     std::vector<String> coefIds;
     std::vector<String> coefNames;
     
-    std::array<float*, Bf::numCoef>  coefValPtrs;
-    float* freq = nullptr;
-    float* q = nullptr;
-    float* gain = nullptr;
+    std::array<std::atomic<float>*, Bf::numCoef>  coefValPtrs;
+    std::atomic<float>* freq = nullptr;
+    std::atomic<float>* q = nullptr;
+    std::atomic<float>* gain = nullptr;
     float previousGain;
     
     dsp::ProcessSpec spec;
@@ -102,7 +102,7 @@ private:
     // frequency
     static constexpr float kLowestFreqVal = 20.0f;
     static constexpr float kFreqBaseNumber = 1000.0f;
-    const float getFreqVal(const float* freq)const
+    const float getFreqVal(const std::atomic<float>* freq)const
     {
         return kLowestFreqVal * pow (kFreqBaseNumber, *freq);
     }
@@ -110,21 +110,21 @@ private:
     // q
     static constexpr float kLowestQVal = 0.2f;
     static constexpr float kQBaseNumber = 100.0;
-    const float getQVal (const float* q)const
+    const float getQVal (const std::atomic<float>* q)const
     {
         return kLowestQVal * pow (kQBaseNumber, *q);
     }
     
     // input gain (Db)
     static constexpr float kGainDynamicRange = 48.0f; // decibel
-    const float getGainDecibelVal (const float* gain)const
+    const float getGainDecibelVal (const std::atomic<float>* gain)const
     {
         // gain range : - kGainDynamicRange / 2 [dB] ~ kGainDynamicRange [dB]
         return kGainDynamicRange * (*gain - 0.5f); // 0 dB equals to 0.5
     }
     
     // input gain (linear)
-    const float getGainLinearVal (const float* gain) const
+    const float getGainLinearVal (const std::atomic<float>* gain) const
     {
         return pow (10.0f,getGainDecibelVal (gain)/20.f);
     }

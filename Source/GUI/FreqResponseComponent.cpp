@@ -126,10 +126,10 @@ void FrequencyResponseComponent::paint(Graphics& g)
     
 }
 
-auto FrequencyResponseComponent::getParamValue(String s)
+float FrequencyResponseComponent::getParamValue(String s)
 {
     auto pParam = parameters.getRawParameterValue(s);
-    return *pParam;
+    return pParam->load();
 }
 
 float FrequencyResponseComponent::getSmoothedParamValue(int index)
